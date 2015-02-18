@@ -6,11 +6,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import damian.hashmap.R;
+import damian.hashmap.information.License;
+import damian.hashmap.information.Person;
 
 
 public class MyActivity extends ActionBarActivity {
