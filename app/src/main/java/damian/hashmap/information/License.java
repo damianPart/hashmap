@@ -10,14 +10,9 @@ public class License {
     private long since;
     private long until;
     private String name;
-    private Boolean haveLicense;
 
     public void setName(String name){
         this.name=name;
-    }
-
-    public void setHaveLicense(JSONObject license){
-        this.haveLicense=(license.length()>0);
     }
 
     public void setSince(long since){
@@ -38,10 +33,6 @@ public class License {
 
     public Long getUntil (){
         return until;
-    }
-
-    public boolean personHaveLicense(){
-        return haveLicense;
     }
 
     @Override

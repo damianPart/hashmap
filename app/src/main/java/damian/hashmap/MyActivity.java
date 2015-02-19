@@ -14,13 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import damian.hashmap.information.License;
@@ -43,7 +38,7 @@ public class MyActivity extends ActionBarActivity {
         licences = new HashMap<Person, License>();
         input = (EditText) findViewById(R.id.input);
         try {
-            generateLicense();
+            generateLicenses();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -86,7 +81,7 @@ public class MyActivity extends ActionBarActivity {
 
     }
 
-    public void generateLicense() throws JSONException {
+    public void generateLicenses() throws JSONException {
 
         JSONArray obj = new JSONArray(loadJSONFromAsset());
         for (int i=0; i<obj.length(); i++){
@@ -102,11 +97,10 @@ public class MyActivity extends ActionBarActivity {
                 license1.setSince(since);
                 license1.setUntil(until);
              }
-             license1.setHaveLicense(license);
              Person person = new Person();
              person.setDni(dni);
              person.setName(name);
-             if(license1.personHaveLicense()) {
+             if(license.length()>0) {
                  licences.put(person, license1);
              }
              else{
@@ -126,14 +120,14 @@ public class MyActivity extends ActionBarActivity {
         String textoDevuelto = "";
         if(licences.containsKey(p)){
           if(licences.get(p)!=null){
-              textoDevuelto="la persona tiene registro para conducir de "+String.valueOf(licences.get(p).getSince())+" a "+String.valueOf(licences.get(p).getUntil())+"\n";
+              textoDevuelto="the person has license since "+String.valueOf(licences.get(p).getSince())+" to "+String.valueOf(licences.get(p).getUntil())+"\n";
           }
           else{
-              textoDevuelto="la persona no tiene registro de conducir\n";
+              textoDevuelto="the person hasn't license\n";
           }
         }
         else{
-          textoDevuelto ="la persona no existe\n";
+          textoDevuelto ="the person doesn't exist\n";
         }
         return textoDevuelto;
     }
