@@ -25,25 +25,25 @@ public class Person {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(o == null)                return false;
-        if(!(o instanceof Person)) return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        Person other = (Person) o;
-        return this.dni == other.dni;
+        Person person = (Person) o;
+
+        if (dni != person.dni) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + name.hashCode();
-        return result;
+        return dni;
     }
 
     @Override
     public String toString(){
-        return "";
+        return name;
     }
 
 }

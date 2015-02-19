@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.Map;
 
-import damian.hashmap.R;
 import damian.hashmap.information.License;
 import damian.hashmap.information.Person;
 
@@ -19,11 +18,11 @@ import damian.hashmap.information.Person;
 public class MyActivity extends ActionBarActivity {
     TextView texto;
     Map<Person, License> licences;
-    Person Alejandro;
-    Person Homero;
-    Person Charlie;
-    Person Peter;
-    Person Fry;
+    Person alejandro;
+    Person homero;
+    Person charlie;
+    Person peter;
+    Person fry;
     License l1;
     License l2;
     License l3;
@@ -34,42 +33,51 @@ public class MyActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
         texto =  (TextView) findViewById(R.id.texto);
-        Alejandro = new Person();
-        Alejandro.setDni(12345678);
-        Alejandro.setName("Alejandro Gomez");
-        Charlie = new Person();
-        Charlie.setDni(12345679);
-        Charlie.setName("Charlie Harper");
-        Homero = new Person();
-        Homero.setDni(12345680);
-        Homero.setName("Homero Simpson");
-        Peter = new Person();
-        Peter.setDni(12345681);
-        Peter.setName("Peter Griffin");
-        Fry = new Person();
-        Fry.setDni(12345682);
-        Fry.setName("Philip Fry");
+        alejandro = new Person();
+        alejandro.setDni(12345678);
+        alejandro.setName("alejandro Gomez");
+        charlie = new Person();
+        charlie.setDni(12345679);
+        charlie.setName("charlie Harper");
+        homero = new Person();
+        homero.setDni(12345680);
+        homero.setName("homero Simpson");
+        peter = new Person();
+        peter.setDni(12345681);
+        peter.setName("peter Griffin");
+        fry = new Person();
+        fry.setDni(12345682);
+        fry.setName("Philip fry");
+        Log.e("ALEJANDRO", alejandro.toString());
+        Log.e("CHARLIE", charlie.toString());
+        Log.e("homero", homero.toString());
+        Log.e("peter", peter.toString());
+        Log.e("fry", fry.toString());
+
+
         l1 = new License();
         l1.setSince(20130201);
         l1.setUntil(20160201);
-        l1.setName("Alejandro Gomez");
+        l1.setName("alejandro Gomez");
         l2 = new License();
         l2.setSince(20100302);
         l2.setUntil(20140302);
-        l2.setName("Charlie Harper");
+        l2.setName("charlie Harper");
         l3 = new License();
         l3.setSince(20140403);
         l3.setUntil(20170403);
-        l3.setName("Homero Simpson");
+        l3.setName("homero Simpson");
         l4 = new License();
         l4.setSince(0);
         l4.setUntil(0);
-        l4.setName("Peter Griffin");
+        l4.setName("peter Griffin");
         licences = new HashMap();
-        licences.put(Alejandro, l1);
-        licences.put(Charlie, l2);
-        licences.put(Homero, l3);
-        licences.put(Peter, l4);
+        licences.put(alejandro, l1);
+        licences.put(charlie, l2);
+        licences.put(homero, l3);
+        licences.put(peter, l4);
+
+
     }
 
     public String mensaje2 (Person p){
@@ -91,7 +99,7 @@ public class MyActivity extends ActionBarActivity {
     public void mensaje (View view){
           String textoFinal = "";
           for(Person p: licences.keySet()){
-              Log.e("nombre", p.getName());
+              Log.e("<<<>>>>nombre:::", p.getName());
               textoFinal = textoFinal + mensaje2(p);
           }
           texto.setText(textoFinal);
