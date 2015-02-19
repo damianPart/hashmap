@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -30,6 +31,9 @@ public class MyActivity extends ActionBarActivity {
     TextView text;
     Map<Person, License> licences;
     EditText input;
+    private static final int BUFFER_SIZE = 8*1024;
+    private static final String TAG = "JSON";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,25 +51,36 @@ public class MyActivity extends ActionBarActivity {
     }
 
     public String loadJSONFromAsset() {
-        String json = null;
+        String json = "{}";
+        InputStreamReader is = null;
         try {
+            is = new InputStreamReader(getAssets().open("person.json"), "UTF-8") ;
 
-            InputStream is = getAssets().open("person.json");
+            char[] buffer = new char[BUFFER_SIZE];
 
-            int size = is.available();
+            StringBuilder stringBuilder = new StringBuilder();
 
-            byte[] buffer = new byte[size];
+            int r = is.read(buffer);
+            while (r != -1){
 
-            is.read(buffer);
+                stringBuilder.append(buffer, 0, r);
+                r = is.read(buffer);
+            }
 
-            is.close();
-
-            json = new String(buffer, "UTF-8");
-
+            json = new String(stringBuilder.toString());
 
         } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
+            Log.e(TAG, "Error reading questions file", ex);
+            return "{}";
+        }
+        finally{
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    Log.e(TAG, "Error closing questions file", e);
+                }
+            }
         }
         return json;
 
