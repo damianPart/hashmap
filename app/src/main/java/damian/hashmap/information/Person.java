@@ -30,7 +30,7 @@ public class Person {
         if(!(o instanceof Person)) return false;
 
         Person other = (Person) o;
-        return this.name == other.name;
+        return this.dni == other.dni;
     }
 
     @Override
