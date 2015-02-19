@@ -28,7 +28,6 @@ import damian.hashmap.information.Person;
 public class MyActivity extends ActionBarActivity {
     TextView text;
     Map<Person, License> licences;
-    ArrayList<Person> instances;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,6 @@ public class MyActivity extends ActionBarActivity {
         setContentView(R.layout.activity_my);
         text =  (TextView) findViewById(R.id.text);
         licences = new HashMap<Person, License>();
-        instances = new ArrayList<Person>();
         try {
             generateLicense();
         } catch (JSONException e) {
@@ -78,66 +76,53 @@ public class MyActivity extends ActionBarActivity {
              String name = obj2.getString("name");
              int dni = obj2.getInt("dni");
              JSONObject license = obj2.getJSONObject("license");
-             String have = license.getString("have");
-             long since = 0;
-             long until = 0;
-             if (have.equalsIgnoreCase("yes")) {
-                 since = license.getLong("since");
-                 until = license.getLong("until");
+             License license1 = new License();
+             if(license.length()>0){
+                license1.setName(name);
+                long since = license.getLong("since");
+                long until = license.getLong("until");
+                license1.setSince(since);
+                license1.setUntil(until);
              }
+             license1.setHaveLicense(license);
              Person person = new Person();
              person.setDni(dni);
              person.setName(name);
-             instances.add(person);
-             License license1 = new License();
-             license1.setName(name);
-             license1.setSince(since);
-             license1.setUntil(until);
-             if (have.equalsIgnoreCase("yes")){
-                 license1.setHave("yes");
+             if(license1.personHaveLicense()) {
+                 licences.put(person, license1);
              }
              else{
-                 license1.setHave("no");
-                 }
-             licences.put(person, license1);
+                 licences.put(person, null);
+             }
         }
     }
 
     public Person getPerson (int dni){
         Person p = new Person();
         p.setDni(dni);
-        for (Person q: instances ){
-            if (q.equals(p)){
-                p=q;
-            }
-        }
         return p;
     }
 
-    public String mensaje2 (Person p){
+    public String finalMessage (Person p){
         String textoDevuelto = "";
         if(licences.containsKey(p)){
-          if(licences.get(p).getHave()){
-              textoDevuelto=p.getName()+" tiene registro para conducir de "+String.valueOf(licences.get(p).getSince())+" a "+String.valueOf(licences.get(p).getUntil())+"\n";
+          if(licences.get(p)!=null){
+              textoDevuelto="la persona tiene registro para conducir de "+String.valueOf(licences.get(p).getSince())+" a "+String.valueOf(licences.get(p).getUntil())+"\n";
           }
           else{
-              textoDevuelto=p.getName()+" no tiene registro de conducir\n";
+              textoDevuelto="la persona no tiene registro de conducir\n";
           }
         }
         else{
-          textoDevuelto =p.getName()+" no existe\n";
+          textoDevuelto ="la persona no existe\n";
         }
         return textoDevuelto;
     }
 
-    public void mensaje (View view){
-          String textoFinal = "";
-          int dni = 12345678;
+    public void startMessage (View view){
+          int dni = 12345681;
           Person p = getPerson(dni);
-          //for (Person p : licences.keySet()) {
-              textoFinal = textoFinal + mensaje2(p);
-          //}
-          text.setText(textoFinal);
+          text.setText(finalMessage(p));
 
     }
 

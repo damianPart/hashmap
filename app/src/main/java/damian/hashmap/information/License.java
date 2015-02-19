@@ -1,21 +1,23 @@
 package damian.hashmap.information;
 
+import org.json.JSONObject;
+
 /**
  * Created by damianpart on 2/13/15.
  */
 public class License {
 
-    public long since;
-    public long until;
-    public String name;
-    public String have;
+    private long since;
+    private long until;
+    private String name;
+    private Boolean haveLicense;
 
     public void setName(String name){
         this.name=name;
     }
 
-    public void setHave(String have){
-        this.have=have;
+    public void setHaveLicense(JSONObject license){
+        this.haveLicense=(license.length()>0);
     }
 
     public void setSince(long since){
@@ -38,8 +40,8 @@ public class License {
         return until;
     }
 
-    public boolean getHave(){
-        return have.equalsIgnoreCase("yes");
+    public boolean personHaveLicense(){
+        return haveLicense;
     }
 
     @Override

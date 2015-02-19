@@ -5,8 +5,8 @@ package damian.hashmap.information;
  */
 public class Person {
 
-    public int dni;
-    public String name;
+    private int dni;
+    private String name;
 
     public void setDni (int dni){
         this.dni = dni;
