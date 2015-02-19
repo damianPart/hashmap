@@ -28,6 +28,7 @@ import damian.hashmap.information.Person;
 public class MyActivity extends ActionBarActivity {
     TextView text;
     Map<Person, License> licences;
+    ArrayList<Person> instances;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class MyActivity extends ActionBarActivity {
         setContentView(R.layout.activity_my);
         text =  (TextView) findViewById(R.id.text);
         licences = new HashMap<Person, License>();
+        instances = new ArrayList<Person>();
         try {
             generateLicense();
         } catch (JSONException e) {
@@ -86,6 +88,7 @@ public class MyActivity extends ActionBarActivity {
              Person person = new Person();
              person.setDni(dni);
              person.setName(name);
+             instances.add(person);
              License license1 = new License();
              license1.setName(name);
              license1.setSince(since);
@@ -98,6 +101,17 @@ public class MyActivity extends ActionBarActivity {
                  }
              licences.put(person, license1);
         }
+    }
+
+    public Person getPerson (int dni){
+        Person p = new Person();
+        p.setDni(dni);
+        for (Person q: instances ){
+            if (q.equals(p)){
+                p=q;
+            }
+        }
+        return p;
     }
 
     public String mensaje2 (Person p){
@@ -118,11 +132,11 @@ public class MyActivity extends ActionBarActivity {
 
     public void mensaje (View view){
           String textoFinal = "";
-          //int dni = 12345678;
-          //Person p = getPerson(dni);
-          for (Person p : licences.keySet()) {
+          int dni = 12345678;
+          Person p = getPerson(dni);
+          //for (Person p : licences.keySet()) {
               textoFinal = textoFinal + mensaje2(p);
-          }
+          //}
           text.setText(textoFinal);
 
     }
