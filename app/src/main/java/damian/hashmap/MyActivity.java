@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -28,6 +29,7 @@ import damian.hashmap.information.Person;
 public class MyActivity extends ActionBarActivity {
     TextView text;
     Map<Person, License> licences;
+    EditText input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MyActivity extends ActionBarActivity {
         setContentView(R.layout.activity_my);
         text =  (TextView) findViewById(R.id.text);
         licences = new HashMap<Person, License>();
+        input = (EditText) findViewById(R.id.input);
         try {
             generateLicense();
         } catch (JSONException e) {
@@ -97,7 +100,8 @@ public class MyActivity extends ActionBarActivity {
         }
     }
 
-    public Person getPerson (int dni){
+    public Person getPerson (String id){
+        int dni = Integer.parseInt(id);
         Person p = new Person();
         p.setDni(dni);
         return p;
@@ -120,7 +124,7 @@ public class MyActivity extends ActionBarActivity {
     }
 
     public void startMessage (View view){
-          int dni = 12345681;
+          String dni = input.getText().toString();
           Person p = getPerson(dni);
           text.setText(finalMessage(p));
 
