@@ -8,9 +8,14 @@ public class License {
     public long since;
     public long until;
     public String name;
+    public String have;
 
     public void setName(String name){
         this.name=name;
+    }
+
+    public void setHave(String have){
+        this.have=have;
     }
 
     public void setSince(long since){
@@ -31,6 +36,10 @@ public class License {
 
     public Long getUntil (){
         return until;
+    }
+
+    public boolean getHave(){
+        return have.equalsIgnoreCase("yes");
     }
 
     @Override

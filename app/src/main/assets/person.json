@@ -1,0 +1,4 @@
+[{name: "alejandro Gomez", dni: 12345678, license: {have: "yes", since: 20130201, until: 20160201}},
+{name: "charlie Harper", dni: 12345679, license: {have: "yes", since: 20100302, until: 20140302}},
+{name: "homero Simpson", dni: 12345680, license: {have: "yes", since: 20140403, until: 20170403}},
+{name: "peter Griffin", dni: 12345681, license: {have: "no"}}]}
